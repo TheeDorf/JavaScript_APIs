@@ -3,31 +3,34 @@ console.log("Hello World!\n==========\n");
 // Exercise 1 Section
 console.log("EXERCISE 1:\n==========\n");
 
-const submitSearch = document.getElementById("submitSearch");
-let searchInput = document.getElementById("searchWord");
-const image = document.getElementById("imageContainer");
-const feedback = document.getElementById("feedback");
-const apiKey= "CJ5snDcWRg1r0BvaxhBJNKF7W6xi5VjP";
-let searchQuery = searchInput.value;
-let url = `https://api.giphy.com/v1/gifs/translate?api_key=${apiKey}&s=${searchInput.value}`
-//  https://api.giphy.com/v1/gifs/translate?api_key=CJ5snDcWRg1r0BvaxhBJNKF7W6xi5VjP&s=dogs
-function gitGiph(){
-    fetch(`https://api.giphy.com/v1/gifs/translate?api_key=${apiKey}&s=${searchInput.value}`)
-    .then((res)=> {
-        console.log(res);
-    //    response.json()
-       let x = res.json();
-       console.log(x);
-       return x;
-        
-    })
-    .then((data)=>{
-        console.log(data);
-        console.log(searchInput.value);
-        
-    })
-    .catch((error) => {console.error(error)})
-}
-// gitGiph()
+const button = document.getElementById("submitSearch");
+const input = document.getElementById("searchWord");
+const divImage = document.getElementById("imageContainer");
+const img = document.getElementById("img");
+const feedbackP = document.createElement("p");
+const apiKey = "api_key=CJ5snDcWRg1r0BvaxhBJNKF7W6xi5VjP";
 
-submitSearch.addEventListener("click", gitGiph);
+// Exercise 2 Section
+console.log("EXERCISE 2:\n==========\n");
+
+button.addEventListener("click", showGif);
+
+function showGif() {
+  fetch(`https://api.giphy.com/v1/gifs/translate?${apiKey}&s=${input.value}`)
+    .then((response) => {
+      const result = response.json();
+      return result;
+    })
+    .then((object) => {
+      console.log(object.data.images.original.url);
+      img.src = object.data.images.original.url;
+      input.value = ""
+      feedbackP.textContent = ""
+    })
+    .catch((err) => {
+      console.error(err);
+      feedbackP.textContent = err;
+      divImage.appendChild(feedbackP);
+      img.src = ""
+    });
+};
