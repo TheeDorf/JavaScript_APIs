@@ -10,8 +10,6 @@ const img = document.getElementById("img");
 const feedbackP = document.createElement("p");
 const apiKey = "api_key=CJ5snDcWRg1r0BvaxhBJNKF7W6xi5VjP";
 
-// Exercise 2 Section
-console.log("EXERCISE 2:\n==========\n");
 
 searchButton.addEventListener("click", showGif);
 
